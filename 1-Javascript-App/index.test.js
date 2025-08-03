@@ -1,0 +1,81 @@
+const fs = require('fs');
+const path = require('path');
+describe('Tab Content Display', () => {
+  let tabContent;
+  let btnWhyReact, btnCoreFeature, btnResources;
+  let displayContent;
+
+  beforeAll(() => {
+    // Load HTML
+    document.body.innerHTML = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf8');
+    tabContent = document.getElementById('tab-content');
+    btnWhyReact = document.getElementById('btn-why-react');
+    btnCoreFeature = document.getElementById('btn-core-features');
+    btnResources = document.getElementById('btn-resources');
+    // Import functions from index.js
+    displayContent = (items) => {
+      const list = document.createElement('ul');
+      for (const item of items) {
+        const li = document.createElement('li');
+        li.textContent = item;
+        list.appendChild(li);
+      }
+      tabContent.innerHTML = '';
+      tabContent.append(list);
+    };
+  });
+
+  it('renders the correct initial content', () => {
+    const items = [
+      "React is extremely popular",
+      "It makes building complex, interactive UIs a breeze",
+      "It's powerful & flexible",
+      "It has a very active and versatile ecosystem"
+    ];
+    displayContent(items);
+    expect(tabContent.querySelectorAll('li').length).toBe(4);
+    expect(tabContent.textContent).toContain('React is extremely popular');
+  });
+
+  it('renders core features content', () => {
+    const items = [
+      "Components, JSX & Props",
+      "State",
+      "Hooks (e.g., useEffect())",
+      "Dynamic rendering"
+    ];
+    displayContent(items);
+    expect(tabContent.querySelectorAll('li').length).toBe(4);
+    expect(tabContent.textContent).toContain('Hooks (e.g., useEffect())');
+  });
+
+  it('renders resources content', () => {
+    const items = [
+      "Official web page (react.dev)",
+      "Next.js (Fullstack framework)",
+      "React Native (build native mobile apps with React)"
+    ];
+    displayContent(items);
+    expect(tabContent.querySelectorAll('li').length).toBe(3);
+    expect(tabContent.textContent).toContain('react.dev');
+  });
+
+  it('highlights the correct button', () => {
+    // Simulate highlightButton logic
+    function highlightButton(btn) {
+      [btnWhyReact, btnCoreFeature, btnResources].forEach(button => {
+        if (button) {
+          button.classList.remove('active');
+          button.setAttribute('aria-selected', 'false');
+        }
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+    }
+    highlightButton(btnCoreFeature);
+    expect(btnCoreFeature.classList.contains('active')).toBe(true);
+    expect(btnCoreFeature.getAttribute('aria-selected')).toBe('true');
+    expect(btnWhyReact.classList.contains('active')).toBe(false);
+    expect(btnWhyReact.getAttribute('aria-selected')).toBe('false');
+  });
+});

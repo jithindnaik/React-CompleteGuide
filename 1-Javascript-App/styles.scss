@@ -1,0 +1,84 @@
+$color-bg: #181c1f;
+$color-header: #f3e248;
+$color-header-p: #dbd7b1;
+$color-tabs-bg: #282f33;
+$color-tabs-active: #f3e248;
+$color-tabs-text: #e0eff1;
+$color-tabs-active-text: #273133;
+$color-tab-content-bg: #2d3942;
+$color-main-text: #bdd1d4;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: $color-bg;
+  color: $color-main-text;
+  margin: 2rem;
+}
+
+header {
+  margin: 2rem 0;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+
+  img {
+    width: 3rem;
+    object-fit: contain;
+  }
+
+  h1 {
+    margin: 0;
+    color: $color-header;
+  }
+
+  p {
+    margin: 0;
+    color: $color-header-p;
+  }
+}
+
+#tabs {
+  max-width: 32rem;
+  margin: 2rem 0;
+  overflow: hidden;
+
+  menu {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  button {
+    font: inherit;
+    font-size: 0.85rem;
+    background-color: $color-tabs-bg;
+    border: none;
+    border-bottom-color: $color-tabs-active;
+    color: $color-tabs-text;
+    border-radius: 4px 4px 0 0;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+
+    &:hover,
+    &.active {
+      background-color: $color-tabs-active;
+      color: $color-tabs-active-text;
+    }
+  }
+}
+
+#tab-content {
+  background-color: $color-tab-content-bg;
+  border-radius: 0 4px 4px 4px;
+  padding: 1rem;
+
+  li {
+    margin: 0.75rem 0;
+  }
+}
